@@ -1,0 +1,4 @@
+# import config
+packagefile log=/usr/local/go/pkg/linux_amd64/log.a
+packagefile net/http=/usr/local/go/pkg/linux_amd64/net/http.a
+packagefile runtime=/usr/local/go/pkg/linux_amd64/runtime.a
