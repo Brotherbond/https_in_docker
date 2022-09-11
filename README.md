@@ -1,5 +1,16 @@
 # HTTPS in docker 
 
+install mkcert on ur pc
+
+##### If it's the firt install of mkcert, run
+mkcert -install
+
+##### Generate certificate for domains of interest "docker.localhost", "domain.local" and their sub-domains
+mkcert -cert-file ./proxy/certs/localhost.crt -key-file ./proxy/certs/localhost.key "docker.localhost" "*.docker.localhost" "domain.local" "*.domain.local"
+
+
+
+
 As a web application developer, one of the most common challenge faced is, not having the local development environment close enough to the production environment. While there can be many aspects to this, in this post we will focus on the following two
 
 - Having a domain name, instead of something like `http://localhost:8080`
