@@ -1,0 +1,45 @@
+version: '3.5'
+services:
+  nginx-proxy:
+    container_name: proxy
+    image: jwilder/nginx-proxy
+    ports:
+      - '80:80'
+      - '443:443'
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+      - ./proxy/certs:/etc/nginx/certs
+    networks:
+      default:
+        ipv4_address: 172.20.0.200
+
+  whoami:
+    container_name: whoami
+    image: jwilder/whoami
+    volumes:
+      - ./proxy/certs/localhost.crt:/usr/local/share/ca-certificates/localhost.crt
+    environment:
+      - VIRTUAL_HOST=whoami.localhost
+      - VIRTUAL_PORT=8000
+    extra_hosts:
+      - 'nginx.localhost:172.20.0.200'
+      - 'whoami.localhost:172.20.0.200'
+
+  nginx:
+    container_name: nginx
+    image: nginx:latest
+    volumes:
+      - ./proxy/certs/localhost.crt:/usr/local/share/ca-certificates/localhost.crt
+    environment:
+      - VIRTUAL_HOST=nginx.localhost
+      - VIRTUAL_PORT=80
+    extra_hosts:
+      - 'nginx.localhost:172.20.0.200'
+      - 'whoami.localhost:172.20.0.200'
+  
+
+networks:
+  default:
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16
