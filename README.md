@@ -1,8 +1,10 @@
+NB: copied from diff sources, sorted and adjusted to compile working codes and how they work. Adjustment in progress to make it clearer.
+
 # HTTPS in docker 
 
 install mkcert on ur pc
 
-##### If it's the firt install of mkcert, run
+##### If it's the first install of mkcert, run
 mkcert -install
 
 ##### Generate certificate for domains of interest "docker.localhost", "domain.local" and their sub-domains
